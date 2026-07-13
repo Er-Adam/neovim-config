@@ -2,7 +2,7 @@ return {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     keys = {
-        { "-", "<CMD>Telescope file_browser<CR>", desc = "Open File Browser" }
+        { "-", "<CMD>Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "Open File Browser" }
     },
     dependencies = {
         "nvim-lua/plenary.nvim",
@@ -23,7 +23,10 @@ return {
 
             if vim.fn.isdirectory(entry.path) == 1 then
                 fb_actions.change_cwd(prompt_bufnr)
+                vim.cmd.cd(entry.path)
             else
+                local file_dir = vim.fs.dirname(entry.path)
+                vim.cmd.cd(file_dir)
                 actions.select_default(prompt_bufnr)
             end
         end
