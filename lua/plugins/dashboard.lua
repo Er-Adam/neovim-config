@@ -7,7 +7,7 @@ return {
 
         dashboard.section.buttons.val = {
             dashboard.button("s", ">  Restore Last Session", ":lua require('persistence').load({ last = true })<CR>"),
-            dashboard.button("p", ">  Recent Projects", ":Telescope projects<CR>"),
+            dashboard.button("p", ">  Recent Sessions", ":lua require('persistence').select()<CR>"),
             dashboard.button("n", ">  New file", ":ene <BAR> startinsert <CR>"),
             dashboard.button("f", ">  Find file",
                 ":lua require('telescope.builtin').find_files({ cwd = vim.fn.getcwd() })<CR>"),

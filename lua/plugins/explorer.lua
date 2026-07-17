@@ -1,5 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
+    event = "VeryLazy",
     cmd = "Telescope",
     keys = {
         { "-", "<CMD>Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "Open File Browser" }
@@ -8,6 +9,7 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope-file-browser.nvim",
         "nvim-tree/nvim-web-devicons",
+        'nvim-telescope/telescope-ui-select.nvim'
     },
     config = function()
         local telescope = require("telescope")
@@ -32,6 +34,14 @@ return {
         end
 
         telescope.setup({
+            defaults = {
+                initial_mode = "normal",
+                mappings = {
+                    n = {
+                        ["q"] = actions.close,
+                    },
+                },
+            },
             extensions = {
                 file_browser = {
                     initial_mode = "normal",
@@ -51,10 +61,14 @@ return {
                         },
                     },
                 },
+                ["ui-select"] = {
+                    require("telescope.themes").get_dropdown {
+                    }
+                }
             },
         })
 
         telescope.load_extension("file_browser")
-        telescope.load_extension('projects')
+        telescope.load_extension("ui-select")
     end,
 }
