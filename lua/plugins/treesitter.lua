@@ -1,4 +1,4 @@
-function get_parsers()
+local function get_parsers()
     local parsers = {
         "vim",
         "vimdoc",
@@ -9,13 +9,17 @@ function get_parsers()
 
     local lang_dir = vim.fn.stdpath("config") .. "/lua/languages"
 
-    for name, type in vim.fs.dir(lang_dir) do
-        if type == "file" and name:sub(-4) == ".lua" then
+    for name, entry_type in vim.fs.dir(lang_dir) do
+        if entry_type == "file" and name:sub(-4) == ".lua" then
             local module = "languages." .. name:sub(1, -5)
 
             local ok, lang = pcall(require, module)
             if ok and lang.parser then
-                table.insert(parsers, lang.parser)
+                if type(lang.parser) == "string" then
+                    table.insert(parsers, lang.parser)
+                elseif type(lang.parser) == "table" then
+                    vim.list_extend(parsers, lang.parser)
+                end
             end
         end
     end

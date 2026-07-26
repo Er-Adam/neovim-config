@@ -50,7 +50,7 @@ return {
                     mappings = {
                         ["n"] = {
                             ["v"] = "file_vsplit",
-                            ["s"] = "file_split",
+                            ["h"] = "file_split",
                             ["t"] = "file_tab",
 
                             ["L"] = open_or_enter,

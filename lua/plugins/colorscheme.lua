@@ -1,6 +1,5 @@
 local state_file = vim.fn.stdpath("state") .. "/theme_state"
 
--- 1. Read persisted state on Neovim startup
 local f = io.open(state_file, "r")
 if f then
     local theme = f:read("*all"):gsub("%s+", "")

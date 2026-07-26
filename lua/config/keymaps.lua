@@ -15,8 +15,27 @@ vim.keymap.set("n", "<C-x>", "<cmd>close<CR>", { desc = "Close window" })
 -- tab navigation
 vim.keymap.set("n", "<M-h>", "gT", { desc = "Previous tab" })
 vim.keymap.set("n", "<M-l>", "gt", { desc = "Next tab" })
-vim.keymap.set("n", "<M-j>", "<cmd>tabfirst<CR>", { desc = "First tab" })
-vim.keymap.set("n", "<M-k>", "<cmd>tablast<CR>", { desc = "Last tab" })
 vim.keymap.set("n", "<M-x>", "<cmd>tabclose<CR>", { desc = "Close Tab" })
 
 vim.keymap.set("n", "<leader>h", "<cmd>Alpha<CR>", { desc = "Open Alpha dashboard", })
+
+
+-- Move line/block down/up
+vim.keymap.set({ "n", "v" }, "<M-j>", function()
+    if vim.fn.mode() == "n" then
+        vim.cmd("move .+1")
+        vim.cmd("normal! ==")
+    else
+        vim.cmd("move '>+1")
+        vim.cmd("normal! gv=gv")
+    end
+end, { desc = "Move line/block down" })
+vim.keymap.set({ "n", "v" }, "<M-k>", function()
+    if vim.fn.mode() == "n" then
+        vim.cmd("move .-2")
+        vim.cmd("normal! ==")
+    else
+        vim.cmd("move '<-2")
+        vim.cmd("normal! gv=gv")
+    end
+end, { desc = "Move line/block up" })
